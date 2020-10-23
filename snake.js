@@ -18,6 +18,8 @@ snake[0] = {
     y: 10 * box
 }
 
+//make extra code
+
 //create the apple
 
 let apple = {
