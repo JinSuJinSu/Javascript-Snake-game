@@ -1,7 +1,7 @@
 const cvs = document.getElementById('snake');
 const ctx = cvs.getContext('2d');
 
-const box = 32;
+const box = 40;
 
 const ground_img = new Image();
 ground_img.src = 'ground.png';
@@ -18,13 +18,13 @@ snake[0] = {
     y: 10 * box
 }
 
-//make extra code
+
 
 //create the apple
 
 let apple = {
-    x: Math.floor(Math.random() * 17 + 1) * box,
-    y: Math.floor(Math.random() * 15 + 1) * box
+    x: Math.floor(Math.random() * 14 + 1) * box,
+    y: Math.floor(Math.random() * 12 + 1) * box
 }
 
 //create the score
@@ -33,22 +33,24 @@ let score = 0;
 
 
 
-let snakeX = snake[0].x;
-let snakeY = snake[0].y;
-
+let d;
 
 //control the snake
-document.addEventListener('keydown', direction => {
-    if (event.keyCode == 37) {
-        snakeX -= box/2;
-    } else if (event.keyCode == 38) {
-        snakeY -= box/2;
-    } else if (event.keyCode == 39) {
-        snakeX += box/2;
-    } else if (event.keyCode == 40) {
-        snakeY += box/2;
+
+document.addEventListener('keydown', event => {
+    if (event.keyCode === 37 && d!=='RIGHT') {
+        d = 'LEFT';
+    } else if (event.keyCode == 38 && d !== 'DOWN') {
+        d = 'UP';
+    } else if (event.keyCode == 39 && d !== 'LEFT') {
+        d = 'RIGHT';
+    } else if (event.keyCode == 40 && d !== 'UP') {
+        d = 'DOWN';
     }
 })
+
+
+
 
 
 //draw everything to the canvas
@@ -58,20 +60,27 @@ function draw() {
 
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = 'blue';
-        ctx.fillRect(snakeX,snakeY,box, box)
+        ctx.fillRect(snake[i].x,snake[i].y,box, box)
 
         ctx.strokeStyle = 'black';
-        ctx.strokeRect(snakeX,snakeY,box,box)
+        ctx.strokeRect(snake[i].x,snake[i].y,box,box)
     }
     ctx.drawImage(apple_img, apple.x, apple.y);
 
-    ctx.fillStyle = 'white'
-    ctx.font = '45px Changa one';
-    ctx.fillText(score, 2 * box, 1.6 * box)
+    //old head position
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
 
-
+    //remove the tail
     snake.pop();
 
+    //which direction
+    if (d === 'LEFT') snakeX -= 10;
+    if (d === 'UP') snakeY -= 10;
+    if (d === 'RIGHT') snakeX += 10;
+    if (d === 'DOWN') snakeY += 10;
+
+    // add new Head
 
     let newHead = {
         x: snakeX,
@@ -81,9 +90,20 @@ function draw() {
     snake.unshift(newHead);
 
 
+    ctx.fillStyle = 'white'
+    ctx.font = '45px Changa one';
+    ctx.fillText(score, 2 * box, 1.6 * box)
+
+
+  
+
+
 }
 
 
 // call draw function every 100 ms
 
-let game = setInterval(draw,100)
+let game = setInterval(draw, 100)
+
+
+
