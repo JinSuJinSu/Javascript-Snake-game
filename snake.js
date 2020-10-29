@@ -80,10 +80,10 @@ function draw() {
 
  
     //which direction
-    if (d === 'LEFT') snakeX -= 5;
-    if (d === 'UP') snakeY -= 5;
-    if (d === 'RIGHT') snakeX += 5;
-    if (d === 'DOWN') snakeY += 5;
+    if (d === 'LEFT') snakeX -= apple_length;
+    if (d === 'UP') snakeY -= apple_length;
+    if (d === 'RIGHT') snakeX += apple_length;
+    if (d === 'DOWN') snakeY += apple_length;
 
     if (snakeX === apple.x && snakeY === apple.y) {
         score++;
@@ -105,11 +105,18 @@ function draw() {
 
     snake.unshift(newHead);
 
-    // game over
-    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length) {
-        score = 1000
+    function gameover() {
+        ctx.fillStyle = 'white'
+        ctx.font = '45px Changa one';
+        ctx.fillText('Game Over!', ground_width / 3, ground_height/2)
     }
 
+    // game over
+    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length) {
+        clearInterval(game);
+        gameover();
+
+    }
 
 
 
