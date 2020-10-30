@@ -57,9 +57,6 @@ document.addEventListener('keydown', event => {
 
 
 
-
-
-
 //draw everything to the canvas
 
 function draw() {
@@ -105,6 +102,16 @@ function draw() {
 
     snake.unshift(newHead);
 
+
+    function collision(head, array) {
+        for (let i = 2; i < array.length; i++) {
+            if (head.x === array[i].x && head.y === array[i].y) {
+                return true;
+            }
+        } return false;
+    }
+
+
     function gameover() {
         ctx.fillStyle = 'white'
         ctx.font = '45px Changa one';
@@ -112,7 +119,7 @@ function draw() {
     }
 
     // game over
-    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length) {
+    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length || collision(newHead,snake)) {
         clearInterval(game);
         gameover();
 
