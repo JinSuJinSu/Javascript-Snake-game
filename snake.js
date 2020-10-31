@@ -16,6 +16,23 @@ const apple_img = new Image();
 apple_img.src = 'apple.png';
 
 
+//create sound
+
+const up = new Audio();
+const left = new Audio();
+const right = new Audio();
+const down = new Audio();
+const death = new Audio();
+const eating = new Audio();
+
+
+up.src = 'movement.wav'
+left.src = 'movement.wav'
+right.src = 'movement.wav'
+down.src = 'movement.wav'
+death.src = 'death.mp3'
+eating.src = 'eating.wav'
+
 //create the snake
 
 let snake = [];
@@ -46,12 +63,16 @@ let d;
 document.addEventListener('keydown', event => {
     if (event.keyCode === 37 && d!=='RIGHT') {
         d = 'LEFT';
+        left.play();
     } else if (event.keyCode == 38 && d !== 'DOWN') {
         d = 'UP';
+        up.play();
     } else if (event.keyCode == 39 && d !== 'LEFT') {
         d = 'RIGHT';
+        right.play();
     } else if (event.keyCode == 40 && d !== 'UP') {
         d = 'DOWN';
+        down.play();
     }
 })
 
@@ -88,6 +109,7 @@ function draw() {
             x: Math.floor(Math.random() * 17) * apple_length,
             y: Math.floor(Math.random() * 17) * apple_length
         }
+        eating.play();
         }else {
             snake.pop(); 
     }
@@ -122,6 +144,7 @@ function draw() {
     if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length || collision(newHead,snake)) {
         clearInterval(game);
         gameover();
+        death.play();
 
     }
 
