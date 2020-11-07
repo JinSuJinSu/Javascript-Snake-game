@@ -81,6 +81,14 @@ document.addEventListener('keydown', event => {
 //draw everything to the canvas
 
 function draw() {
+
+    //which direction
+    if (d === 'LEFT') snakeX -= apple_length;
+    if (d === 'UP') snakeY -= apple_length;
+    if (d === 'RIGHT') snakeX += apple_length;
+    if (d === 'DOWN') snakeY += apple_length;
+
+
     ctx.drawImage(ground_img, 0, 0);
 
     for (let i = 0; i < snake.length; i++) {
@@ -96,12 +104,6 @@ function draw() {
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
- 
-    //which direction
-    if (d === 'LEFT') snakeX -= apple_length;
-    if (d === 'UP') snakeY -= apple_length;
-    if (d === 'RIGHT') snakeX += apple_length;
-    if (d === 'DOWN') snakeY += apple_length;
 
     if (snakeX === apple.x && snakeY === apple.y) {
         score++;
