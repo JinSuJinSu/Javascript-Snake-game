@@ -16,7 +16,7 @@ const apple_img = new Image();
 apple_img.src = 'apple.png';
 
 
-//create sound
+//create sounds
 
 const up = new Audio();
 const left = new Audio();
