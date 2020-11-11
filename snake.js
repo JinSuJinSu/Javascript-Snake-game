@@ -76,8 +76,6 @@ document.addEventListener('keydown', event => {
     }
 })
 
-
-
 //draw everything to the canvas
 
 function draw() {
@@ -148,14 +146,11 @@ function draw() {
 
     }
 
-
-
     ctx.fillStyle = 'white'
     ctx.font = '45px Changa one';
-    ctx.fillText(score, 2 * apple_length, 1.6 * apple_length)
+    ctx.fillText('Score : ' + String(score), 1.5 * apple_length, 1.5 * apple_length)
 
 
-  
 
 
 }
