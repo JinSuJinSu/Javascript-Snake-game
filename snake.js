@@ -1,3 +1,5 @@
+
+
 const cvs = document.getElementById('snake');
 const ctx = cvs.getContext('2d');
 
@@ -46,9 +48,9 @@ snake[0] = {
 //create the apple
 
 let apple = {
-        x: Math.floor(Math.random() * 17) * apple_length,
-        y: Math.floor(Math.random() * 17) * apple_length
-    }
+    x: Math.floor(Math.random() * 17) * apple_length,
+    y: Math.floor(Math.random() * 17) * apple_length
+}
 
 //create the score
 
@@ -61,7 +63,7 @@ let d;
 //control the snake
 
 document.addEventListener('keydown', event => {
-    if (event.keyCode === 37 && d!=='RIGHT') {
+    if (event.keyCode === 37 && d !== 'RIGHT') {
         d = 'LEFT';
         left.play();
     } else if (event.keyCode == 38 && d !== 'DOWN') {
@@ -76,25 +78,19 @@ document.addEventListener('keydown', event => {
     }
 })
 
+
+
 //draw everything to the canvas
 
 function draw() {
-
-    //which direction
-    if (d === 'LEFT') snakeX -= apple_length;
-    if (d === 'UP') snakeY -= apple_length;
-    if (d === 'RIGHT') snakeX += apple_length;
-    if (d === 'DOWN') snakeY += apple_length;
-
-
     ctx.drawImage(ground_img, 0, 0);
 
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = 'blue';
-        ctx.fillRect(snake[i].x,snake[i].y,apple_length, apple_length)
+        ctx.fillRect(snake[i].x, snake[i].y, apple_length, apple_length)
 
         ctx.strokeStyle = 'black';
-        ctx.strokeRect(snake[i].x,snake[i].y,apple_length,apple_length)
+        ctx.strokeRect(snake[i].x, snake[i].y, apple_length, apple_length)
     }
     ctx.drawImage(apple_img, apple.x, apple.y);
 
@@ -103,6 +99,12 @@ function draw() {
     let snakeY = snake[0].y;
 
 
+    //which direction
+    if (d === 'LEFT') snakeX -= apple_length;
+    if (d === 'UP') snakeY -= apple_length;
+    if (d === 'RIGHT') snakeX += apple_length;
+    if (d === 'DOWN') snakeY += apple_length;
+
     if (snakeX === apple.x && snakeY === apple.y) {
         score++;
         apple = {
@@ -110,8 +112,8 @@ function draw() {
             y: Math.floor(Math.random() * 17) * apple_length
         }
         eating.play();
-        }else {
-            snake.pop(); 
+    } else {
+        snake.pop();
     }
 
 
@@ -137,20 +139,23 @@ function draw() {
     function gameover() {
         ctx.fillStyle = 'white'
         ctx.font = '45px Changa one';
-        ctx.fillText('Game Over!', ground_width / 3, ground_height/2)
+        ctx.fillText('Game Over!', ground_width / 3, ground_height / 2)
     }
 
     // game over
-    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length || collision(newHead,snake)) {
+    if (snakeX < 0 || snakeX > ground_width - apple_length || snakeY < 0 || snakeY > ground_height - apple_length || collision(newHead, snake)) {
         clearInterval(game);
         gameover();
         death.play();
 
     }
 
+
+
     ctx.fillStyle = 'white'
     ctx.font = '45px Changa one';
     ctx.fillText('Score : ' + String(score), 1.5 * apple_length, 1.5 * apple_length)
+
 
 
 
@@ -161,6 +166,4 @@ function draw() {
 // call draw function every 100 ms
 
 let game = setInterval(draw, 100)
-
-
 
