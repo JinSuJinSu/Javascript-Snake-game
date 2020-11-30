@@ -1,8 +1,9 @@
 
-
 const cvs = document.getElementById('snake');
 const ctx = cvs.getContext('2d');
 
+
+// create background for the game
 const ground_img = new Image();
 ground_img.src = 'ground.png';
 
@@ -10,9 +11,8 @@ ground_img.src = 'ground.png';
 let ground_width = 680
 let ground_height = 680
 
+
 // apple, snake head length are 40
-
-
 
 const apple_img = new Image();
 apple_img.src = 'apple.png';
@@ -80,6 +80,7 @@ document.addEventListener('keydown', event => {
 
 
 
+
 //draw everything to the canvas
 
 function draw() {
@@ -89,10 +90,35 @@ function draw() {
         ctx.fillStyle = 'blue';
         ctx.fillRect(snake[i].x, snake[i].y, 40, 40)
 
-        ctx.strokeStyle = 'black';
-        ctx.strokeRect(snake[i].x, snake[i].y, 40, 40)
     }
+
     ctx.drawImage(apple_img, apple.x, apple.y);
+
+    // draw bounderlines to play more specifically
+
+    // width bounderlines
+    for (let i = 0; i <= 680; i += 40) {
+        if (i === 680) {
+            i = 679;
+        }
+
+        ctx.fillStyle = 'black';
+        ctx.fillRect(i, 0, 0.7, 680)
+
+ 
+    }
+
+    // height bounderlines
+    for (let i = 0; i <= 680; i += 40) {
+        if (i === 680) {
+            i = 679;
+        }
+
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, i, 680, 0.7)
+
+    }
+
 
     //old head position
     let snakeX = snake[0].x;
@@ -166,4 +192,5 @@ function draw() {
 // call draw function every 100 ms
 
 let game = setInterval(draw, 100)
+
 
